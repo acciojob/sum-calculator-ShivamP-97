@@ -10,7 +10,6 @@ function SumCalculator() {
 
     const calculateSum = async () => {
       await new Promise((resolve) => setTimeout(resolve, 0));
-
       if (active) {
         const total = numbers.reduce((acc, num) => acc + num, 0);
         setSum(total);
@@ -48,11 +47,8 @@ function SumCalculator() {
         style={{ fontSize: "1.2rem", padding: "8px", width: "150px", textAlign: "center" }}
       />
 
-      {/* Sum with unique id */}
-      <p id="sum">Sum: {sum}</p>
-
-      {/* Numbers list with unique id */}
-      <p id="numbers-entered">Numbers Entered: {numbers.join(", ")}</p>
+      {/* Only a single <p> for Cypress to find */}
+      <p>Sum: {sum}</p>
     </div>
   );
 }
