@@ -2,56 +2,55 @@ import React, { useState, useEffect } from "react";
 
 function SumCalculator() {
   const [numbers, setNumbers] = useState([]);
-  const [sum, setSum] = useState(0);
   const [inputValue, setInputValue] = useState("");
+  const [sum, setSum] = useState(0);
 
   useEffect(() => {
     let active = true;
 
-    const asyncSum = async () => {
-      await new Promise((res) => setTimeout(res, 0)); // async non-blocking
+    const calculateSum = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0));
 
       if (active) {
-        const total = numbers.reduce((acc, n) => acc + n, 0);
+        const total = numbers.reduce((acc, num) => acc + num, 0);
         setSum(total);
       }
     };
 
-    asyncSum();
+    calculateSum();
 
     return () => {
       active = false;
     };
   }, [numbers]);
 
-  const handleAddNumber = (e) => {
-    e.preventDefault();
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputValue(value);
 
-    const val = parseInt(inputValue, 10);
+    if (value === "") return;
 
-    if (!isNaN(val)) {
-      setNumbers((prev) => [...prev, val]);
+    const parsed = parseInt(value, 10);
+    if (!isNaN(parsed)) {
+      setNumbers((prev) => [...prev, parsed]);
     }
-
-    setInputValue("");
   };
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Sum Calculator</h2>
+    <div style={{ padding: "20px", textAlign: "center" }}>
+      <h1>Sum Calculator</h1>
 
-      <form onSubmit={handleAddNumber}>
-        <input
-          type="number"
-          placeholder="Enter a number"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-        />
-        <button type="submit">Add Number</button>
-      </form>
+      <input
+        type="number"
+        value={inputValue}
+        onChange={handleChange}
+        aria-label="number-input"
+        style={{ fontSize: "1.2rem", padding: "8px", width: "150px", textAlign: "center" }}
+      />
 
-      <h3>Numbers: {numbers.join(", ")}</h3>
-      <h3>Total Sum: {sum}</h3>
+      <p>Sum: {sum}</p>
+
+      <p>Numbers Entered: {numbers.join(", ")}</p>
     </div>
   );
 }
