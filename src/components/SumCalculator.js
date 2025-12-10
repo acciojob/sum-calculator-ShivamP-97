@@ -48,9 +48,11 @@ function SumCalculator() {
         style={{ fontSize: "1.2rem", padding: "8px", width: "150px", textAlign: "center" }}
       />
 
-      <p>Sum: {sum}</p>
+      {/* Sum with unique id */}
+      <p id="sum">Sum: {sum}</p>
 
-      <p>Numbers Entered: {numbers.join(", ")}</p>
+      {/* Numbers list with unique id */}
+      <p id="numbers-entered">Numbers Entered: {numbers.join(", ")}</p>
     </div>
   );
 }
